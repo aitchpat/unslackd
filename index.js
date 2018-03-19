@@ -15,7 +15,7 @@ var app = express();
 app.use(bodyParser.urlencoded({ extended: false }));
 
 
-const PORT=4390;
+const PORT=process.env.PORT;
 
 app.listen(PORT, function () {
     console.log("UnSlackd listening on port " + PORT);
