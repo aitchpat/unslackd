@@ -1,7 +1,6 @@
 // Import express and request modules
 var express = require('express');
 var request = require('request');
-var rp = require('request-promise');
 var bodyParser = require('body-parser');
 
 // Slack's ID and Secret

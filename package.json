@@ -7,10 +7,9 @@
     "start": "index.js"
   },
   "dependencies": {
-    "express":"latest",
-    "request": "latest",
-    "request-promise": "latest",
-    "body-parser": "latest"
+    "express":"4.16.3",
+    "request": "2.85.0",
+    "body-parser": "1.18.2"
   },
   "author": "Harry Paterra",
   "license": "MIT"
