@@ -70,13 +70,13 @@ app.post('/beer', function(req, res) {
                     var thisBeer = obj.response.beers.items[i];
                     var beer_Rating = 0;
                     var beer_RateCount = 0;
-                    var beerInfoURL = "https://api.untappd.com/v4/beer/info/" + thisBeer.beer.bid + "&client_id=" + untappdClientId + "&client_secret=" + untappdClientSecret;
-                    request(beerInfoURL,function(infoError,infoResponse,infoBody){
-                        var info = JSON.parse(infoBody);
-                        beer_Rating = info.response.beer.rating_score;
-                        beer_RateCount = info.response.beer.rating_count;
-                        console.log(beer_Rating + " out of " + beer_RateCount);
-                    })
+                    // var beerInfoURL = "https://api.untappd.com/v4/beer/info/" + thisBeer.beer.bid + "&client_id=" + untappdClientId + "&client_secret=" + untappdClientSecret;
+                    // request(beerInfoURL,function(infoError,infoResponse,infoBody){
+                    //     var info = JSON.parse(infoBody);
+                    //     beer_Rating = info.response.beer.rating_score;
+                    //     beer_RateCount = info.response.beer.rating_count;
+                    //     console.log(beer_Rating + " out of " + beer_RateCount);
+                    // })
                     var thisAttachment = {
                         "color": "#ffcc00",
                         "author_name": thisBeer.brewery.brewery_name,
