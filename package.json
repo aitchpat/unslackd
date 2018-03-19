@@ -12,8 +12,7 @@
     "body-parser": "1.18.2"
   },
   "engines": {
-    "node": "6.10.3",
-    "npm": "3.10.10"
+    "node": "6.10.3"
   },
   "author": "Harry Paterra",
   "license": "MIT"
