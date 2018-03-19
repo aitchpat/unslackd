@@ -92,7 +92,7 @@ app.post('/beer', function(req, res) {
                             },
                             {
                                 "title": "Style",
-                                "value": thisBeer.beer_style
+                                "value": thisBeer.beer.beer_style
                             }
                         ],
                         "image_url": thisBeer.beer.beer_label
