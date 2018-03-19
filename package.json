@@ -6,6 +6,12 @@
   "scripts": {
     "start": "node lib/index.js"
   },
+  "dependencies": {
+    "express":"latest",
+    "request": "latest",
+    "request-promise": "latest",
+    "body-parser": "latest"
+  },
   "author": "Harry Paterra",
   "license": "MIT"
 }
