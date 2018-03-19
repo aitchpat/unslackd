@@ -5,5 +5,5 @@ import { Router } from 'express';
 import BeerController from '../controllers/beer';
 
 export default createBeerRoutes = (router) => {
-    router.post('/beer', BeerController.searchBeers);
+    router.post('/beer', BeerController.searchBeersByName);
 }

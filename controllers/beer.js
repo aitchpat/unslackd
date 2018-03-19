@@ -3,9 +3,10 @@ import { Request, Response } from 'express';
 import BluebirdRequest from 'request-promise';
 import Bluebird from 'bluebird';
 
-// Secrets
-const untappdClientID = process.env.UNTAPPD_CLIENT_ID;
-const untappdClientSecret = process.env.UNTAPPD_CLIENT_SECRET;
+// Internal Dependencies
+
+// Services
+import UntappdService from '../services/untappd';
 
 const createBeerAttachment = (theBeer, theBeerRating, theBeerNumRatings) => {
     const thisAttachment = {
@@ -19,51 +20,37 @@ const createBeerAttachment = (theBeer, theBeerRating, theBeerNumRatings) => {
         fields: [
             {
                 title: 'Rating',
-                value: `${theBeerRating}/5 from ${theBeerNumRatings} reviews`
+                value: `${theBeerRating}/5 from ${theBeerNumRatings} reviews`,
             },
             {
                 title: 'Style',
-                value: theBeer.beer.beer_style
+                value: theBeer.beer.beer_style,
             }
         ],
-        image_url: theBeer.beer.beer_label
+        image_url: theBeer.beer.beer_label,
     };
+    return createBeerAttachment;
 };
 
-const searchBeers = (req, res) => {
+const searchBeersByName = (req, res) => {
     let searchNum = 0;
     if (req.body.text.indexOf('SEARCHNUMBER') > -1) {
         searchNum = req.body.text.substring(req.body.text.indexOf('SEARCHNUMBER'));
         searchNum = searchNum * 3;
     }
-    const numBeers = 0;
-    const attachments = [];
-    const searchURL = 'https://api.untappd.com/v4/search/beer'
-    const queryParams = {
-        q: req.body.text,
-        client_id: untappdClientID,
-        client_secret: untappdClientSecret,
-    };
-    const requestOptions = {
-        url: searchURL,
-        qs: queryParams,
-    };
-    return BluebirdRequest(requestOptions).then((body) => {
-        const numBeers = body.beers.count;
+
+    // Search for a beer on Untappd by name
+    const beerName = req.body.text;
+    return UntappdService.beerSearch(beerName).then((body) => {
         const beers = body.beers.items;
+        const numBeers = body.beers.count;
         const attachments = [];
 
+        // Get the information for each of the beers
         return Bluebird.map(beers, (thisBeer) => {
-            const beerInfoURL = `https://api.untappd.com/v4/beer/info/${thisBeer.beer.bid}`;
-            const beerInfoQueryParams = {
-                client_id: untappdClientID,
-                client_secret: untappdClientSecret,
-            }
-            const beerInfoRequestOptions = {
-                url: beerInfoURL,
-                qs: beerInfoQueryParams,
-            }
-            return BluebirdRequest(beerInfoRequestOptions).then((beerInfoBody) => {
+            const thisBeerID = thisBeer.beer.bid;
+            return UntappdService.beerInfo(thisBeerID).then((beerInfoBody) => {
+                // Create an object to send back to Slack with the info
                 const beerRating = beerInfoBody.beer.rating_score;
                 const beerNumRatings = beerInfoBody.beer.rating_count;
                 const beerAttachment = createBeerAttachment(thisBeer, beerRating, beerNumRatings);
@@ -73,6 +60,7 @@ const searchBeers = (req, res) => {
                 console.log(beerInfoErr);
             })
         }).then(() => {
+            // We have processed the search results, send back the info
             const payload = {
                 response_type: "in_channel",
                 text: `${numBeers} beers found, first three shown below`,
@@ -87,5 +75,5 @@ const searchBeers = (req, res) => {
 };
 
 export default {
-    searchBeers
+    searchBeersByName
 };
