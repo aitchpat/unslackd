@@ -7,6 +7,7 @@ const untappdClientSecret = process.env.UNTAPPD_CLIENT_SECRET;
 
 const beerSearch = (beerName) => {
   const requestOptions = {
+    method: 'GET',
     url: 'https://api.untappd.com/v4/search/beer',
     qs: {
       q: beerName,
@@ -20,6 +21,7 @@ const beerSearch = (beerName) => {
 
 const beerInfo = (bid) => {
   const requestOptions = {
+    method: 'GET',
     url: `https://api.untappd.com/v4/beer/info/${bid}`,
     qs: {
       client_id: untappdClientID,

@@ -4,7 +4,7 @@
 import { expect } from 'chai';
 
 // Internal Dependencies
-import UntappdOperations from '../../operations/untappd';
+import UntappdOperations from '../../src/operations/untappd';
 
 describe('Untappd Operations', function () {
   this.timeout(10000);

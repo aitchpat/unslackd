@@ -3,7 +3,7 @@
 import { expect } from 'chai';
 
 // Internal Dependencies
-import UntappdService from '../../services/untappd';
+import UntappdService from '../../src/services/untappd';
 
 describe('Untappd Service', function () {
   this.timeout(10000);

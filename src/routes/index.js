@@ -16,14 +16,15 @@ export default class UnslackdRoutes {
     BeerRoutes(router);
 
     app.use('/', router);
-    app.use(this.default);
+    app.use(this.defaultErrorHandler);
   }
 
   /**
    * Express default error handler.
    * See: http://expressjs.com/en/guide/error-handling.html
    */
-  static defaultErrorHandler(err, req, res) {
+  // eslint-disable-next-line
+  static defaultErrorHandler(err, req, res, next) {
     console.error('Internal Error. Uncaught error in handlers: ', err);
     res.status(500).json({ error: 'Internal server error' });
   }
