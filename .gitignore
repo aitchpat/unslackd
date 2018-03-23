@@ -1,5 +1,8 @@
 # Dependency Directories
 node_modules
 
+# Build Folder
+build
+
 # Environment
 .env
