@@ -1,16 +1,13 @@
 // External Dependencies
 import express from 'express';
 import bodyParser from 'body-parser';
-import dotenv from 'dotenv';
 
 // Internal Dependencies
 // Routes
 import Router from './routes';
 
-// Configure ENV
-dotenv.config({ silent: true });
-
 const app = express();
+
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
