@@ -1,9 +1,9 @@
-// External Dependencies
-import { Router } from 'express';
-
 // Controller
 import BeerController from '../controllers/beer';
 
-export default createBeerRoutes = (router) => {
-    router.post('/beer', BeerController.searchBeersByName);
-}
+const createBeerRoutes = (router) => {
+  router.post('/beer', BeerController.searchBeersByName);
+};
+
+export default createBeerRoutes;
+

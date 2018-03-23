@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 // External Dependencies
 import Bluebird from 'bluebird';
 

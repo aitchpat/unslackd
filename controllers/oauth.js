@@ -1,5 +1,5 @@
+/* eslint-disable consistent-return, no-console */
 // External Dependencies
-import { Request, Response } from 'express';
 import BluebirdRequest from 'request-promise';
 
 // Internal Dependencies
@@ -28,9 +28,9 @@ const getOAuth = (req, res) => {
     url: 'https://slack.com/api/oauth.access',
     qs: queryParams,
   };
+
   return BluebirdRequest(requestOptions).then(body => res.json(body)).catch((err) => {
     console.log(err);
-    throw err;
   });
 };
 

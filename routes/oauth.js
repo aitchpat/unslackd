@@ -1,10 +1,10 @@
-// External Dependencies
-import { Router } from 'express';
-
+// Internal Dependencies
 // Controller
 import OAuthController from '../controllers/oauth';
 
-export default createOAuthRoutes = (router) => {
+const createOAuthRoutes = (router) => {
   router.get('/oauth', OAuthController.getOAuth);
 };
+
+export default createOAuthRoutes;
 
