@@ -5,7 +5,7 @@ import dotenv from 'dotenv';
 
 // Internal Dependencies
 // Routes
-import Router from './src/routes';
+import Router from './routes';
 
 // Configure ENV
 dotenv.config({ silent: true });
