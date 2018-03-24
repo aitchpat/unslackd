@@ -3,3 +3,6 @@ node_modules
 
 # Environment
 .env
+
+# Dev Environment
+unslackd.code-workspace
