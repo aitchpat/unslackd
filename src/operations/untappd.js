@@ -43,7 +43,7 @@ const processSearchResults = (beerName) => {
       return UntappdService.beerInfo(thisBeerID).then((beerInfoRes) => {
         const beerInfoBody = beerInfoRes.response;
         // Create an object to send back to Slack with the info
-        const beerRating = beerInfoBody.beer.rating_score;
+        const beerRating = beerInfoBody.beer.rating_score.toFixed(2);
         const beerNumRatings = beerInfoBody.beer.rating_count;
         const beerAttachment = createBeerAttachment(thisBeer, beerRating, beerNumRatings);
         return beerAttachment;
