@@ -12,7 +12,10 @@
     "test": "mocha --require babel-polyfill --require babel-register --bail --recursive --sort --full-trace ./test"
   },
   "dependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-polyfill": "^6.26.0",
     "babel-preset-env": "^1.6.1",
+    "babel-register": "^6.26.0",
     "bluebird": "^3.5.1",
     "body-parser": "1.18.2",
     "dotenv": "^5.0.1",
@@ -26,9 +29,6 @@
   "author": "Harry Paterra",
   "license": "MIT",
   "devDependencies": {
-    "babel-cli": "^6.26.0",
-    "babel-polyfill": "^6.26.0",
-    "babel-register": "^6.26.0",
     "chai": "^4.1.2",
     "eslint": "^4.19.1",
     "eslint-config-airbnb-base": "^12.1.0",
