@@ -1,7 +1,10 @@
 // External Dependencies
 import express from 'express';
 import bodyParser from 'body-parser';
+const { createMessageAdapter } = require('@slack/interactive-messages');
 
+// Initialize using verification token from environment variables
+const slackMessages = createMessageAdapter(process.env.SLACK_VERIFICATION_TOKEN);
 // Internal Dependencies
 // Routes
 import Router from './routes';
