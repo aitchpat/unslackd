@@ -49,7 +49,6 @@ slackMessages.action('interactive_beer_search', (payload) => {
       attachments: theAttachments
     };
     return payload;
-    res.send(payload);
   }).catch((err) => {
     console.log(`Error processing results: ${err}`);
     return 'Error! Unable to connect to Untappd at this time';
