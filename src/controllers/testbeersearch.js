@@ -15,11 +15,28 @@ const searchBeersByName = (req, res) => {
   const beerName = req.body.text;
   return UntappdOperations.processSearchResults(beerName).then((results) => {
     const { attachments, numBeers } = results;
+    var theAttachments = attachments.slice(searchNum, searchNum + 3);
+    const buttonAttachment = {
+      text: "Not these beers? Load some more",
+      fallback: "You are unable toload more beers",
+      callback_id: "interactive_beer_search",
+      color: "#ffcc00",
+      attachment_type: "default",
+      actions: [
+          {
+              name: "nextButton",
+              text: "Next",
+              type: "button",
+              value: searchNum
+          }
+      ]
+    }
+    theAttachments.push(buttonAttachment);
     // We have processed the search results, send back the info
     const payload = {
       response_type: 'in_channel',
       text: `${numBeers} beers found, first three shown below`,
-      attachments: attachments.slice(searchNum, searchNum + 3),
+      attachments: theAttachments,
       actions: [
         {
           name: "nextSearch",
