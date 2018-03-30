@@ -1,7 +1,7 @@
 // External Dependencies
 import express from 'express';
 import bodyParser from 'body-parser';
-import slackMessages from '@slack/interactive-messages';
+import createMessageAdapter from '@slack/interactive-messages';
 
 // Internal Dependencies
 // Routes
