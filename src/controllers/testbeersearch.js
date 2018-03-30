@@ -36,16 +36,8 @@ const searchBeersByName = (req, res) => {
     // We have processed the search results, send back the info
     const payload = {
       response_type: 'in_channel',
-      text: `${numBeers} beers found, first three shown below`,
-      attachments: theAttachments,
-      actions: [
-        {
-          name: "nextSearch",
-          text: "Next",
-          type: "button",
-          value: searchNum,
-        }
-      ]
+      text: `${numBeers} beers found, ${searchStart + 1} through ${searchStart + 4} shown below`,
+      attachments: theAttachments
     };
     res.send(payload);
   }).catch((err) => {
