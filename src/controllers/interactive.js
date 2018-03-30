@@ -16,7 +16,7 @@ slackMessages.action('interactive_beer_search', (payload) => {
   let searchStart = searchNum;
   let beerName = action.value;
   if (beerName.indexOf('SEARCHNUMBER') > -1) {
-    searchNum = beerName.substring(beerName.indexOf('SEARCHNUMBER'));
+    searchNum = parseInt(beerName.substring(beerName.indexOf('SEARCHNUMBER')));
     searchStart = searchNum * 3;
     beerName = beerName.substring(0,beerName.indexOf('SEARCHNUMBER'));
   }
