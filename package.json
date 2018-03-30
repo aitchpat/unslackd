@@ -12,14 +12,15 @@
     "test": "mocha --require babel-polyfill --require babel-register --bail --recursive --sort --full-trace ./test"
   },
   "dependencies": {
+    "@slack/interactive-messages": "^0.2.0",
     "babel-cli": "^6.26.0",
     "babel-polyfill": "^6.26.0",
     "babel-preset-env": "^1.6.1",
     "babel-register": "^6.26.0",
     "bluebird": "^3.5.1",
-    "body-parser": "1.18.2",
+    "body-parser": "^1.18.2",
     "dotenv": "^5.0.1",
-    "express": "4.16.3",
+    "express": "^4.16.3",
     "request": "^2.85.0",
     "request-promise": "^4.2.2"
   },
