@@ -21,6 +21,7 @@ slackMessages.action('interactive_beer_search', (payload) => {
     beerName = beerName.substring(0,beerName.indexOf('SEARCHNUMBER'));
   }
   searchNum += 1;
+  console.log(`Search #${searchNum} begins`)
   // Search for a beer on Untappd by name
   let nextSearch = UntappdOperations.processSearchResults(beerName).then((results) => {
     const { attachments, numBeers } = results;
@@ -48,6 +49,7 @@ slackMessages.action('interactive_beer_search', (payload) => {
       text: `${numBeers} beers found, ${searchStart + 1} through ${searchStart + 3} shown below`,
       attachments: theAttachments
     };
+    console.log(`${payload.attachments.length} attachments ready representing beers ${searchStart + 1} through ${searchStart + 3}`);
     return payload;
   }).catch((err) => {
     console.log(`Error processing results: ${err}`);
