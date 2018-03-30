@@ -1,6 +1,9 @@
 /* eslint-disable no-console */
 // Internal Dependencies
+const { createMessageAdapter } = require('@slack/interactive-messages');
 
+// Initialize using verification token from environment variables
+const slackMessages = createMessageAdapter(process.env.SLACK_VERIFICATION_TOKEN);
 // Operations
 import UntappdOperations from '../operations/untappd';
 
