@@ -35,8 +35,8 @@ const searchBeersByName = (req, res) => {
     theAttachments.push(buttonAttachment);
     // We have processed the search results, send back the info
     const payload = {
-      response_type: 'in_channel',
-      text: `${numBeers} beers found, ${searchStart + 1} through ${searchStart + 4} shown below`,
+      response_type: 'ephemeral',
+      text: `${numBeers} beers found, ${searchStart + 1} through ${searchStart + 3} shown below`,
       attachments: theAttachments
     };
     res.send(payload);
