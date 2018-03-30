@@ -43,6 +43,7 @@ slackMessages.action('interactive_beer_search', (payload) => {
     theAttachments.push(buttonAttachment);
     // We have processed the search results, send back the info
     const payload = {
+      replace_original: true,
       response_type: 'ephemeral',
       text: `${numBeers} beers found, ${searchStart + 1} through ${searchStart + 3} shown below`,
       attachments: theAttachments
