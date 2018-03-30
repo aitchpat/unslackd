@@ -1,10 +1,10 @@
 // External Dependencies
 import express from 'express';
 import bodyParser from 'body-parser';
-const { createMessageAdapter } = require('@slack/interactive-messages');
+// const { createMessageAdapter } = require('@slack/interactive-messages');
 
-// Initialize using verification token from environment variables
-const slackMessages = createMessageAdapter(process.env.SLACK_VERIFICATION_TOKEN);
+// // Initialize using verification token from environment variables
+// const slackMessages = createMessageAdapter(process.env.SLACK_VERIFICATION_TOKEN);
 // Internal Dependencies
 // Routes
 import Router from './routes';
@@ -14,17 +14,18 @@ const app = express();
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-app.use('/interactive', slackMessages.expressMiddleware());
+// app.use('/interactive', slackMessages.expressMiddleware());
 
-// Attach action handlers
-slackMessages.action('interactive_beer_search', (payload) => {
-  // `payload` is JSON that describes an interaction with a message.
-  console.log(`The user ${payload.user.name} in team ${payload.team.domain} pressed the load more button`);
+// // Attach action handlers
+// slackMessages.action('interactive_beer_search', (payload) => {
+//   // `payload` is JSON that describes an interaction with a message.
+//   console.log(`The user ${payload.user.name} in team ${payload.team.domain} pressed the load more button`);
 
-  // The `actions` array contains details about the specific action (button press, menu selection, etc.)
-  const action = payload.actions[0];
-  console.log(`The button had name ${action.name} and value ${action.value}`);
-});
+//   // The `actions` array contains details about the specific action (button press, menu selection, etc.)
+//   const action = payload.actions[0];
+//   console.log(`The button had name ${action.name} and value ${action.value}`);
+  
+// });
 // Mount Routes
 Router.mountRoutes(app);
 

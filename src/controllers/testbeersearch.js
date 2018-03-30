@@ -6,19 +6,20 @@ import UntappdOperations from '../operations/untappd';
 
 const searchBeersByName = (req, res) => {
   let searchNum = 0;
+  let searchStart = searchNum;
   if (req.body.text.indexOf('SEARCHNUMBER') > -1) {
     searchNum = req.body.text.substring(req.body.text.indexOf('SEARCHNUMBER'));
-    searchNum *= 3;
+    searchStart = searchNum * 3;
   }
-
+  searchNum += 1;
   // Search for a beer on Untappd by name
   const beerName = req.body.text;
   return UntappdOperations.processSearchResults(beerName).then((results) => {
     const { attachments, numBeers } = results;
-    var theAttachments = attachments.slice(searchNum, searchNum + 3);
+    var theAttachments = attachments.slice(searchStart, searchStart + 3);
     const buttonAttachment = {
       text: "Not these beers? Load some more",
-      fallback: "You are unable toload more beers",
+      fallback: "You are unable to load more beers",
       callback_id: "interactive_beer_search",
       color: "#ffcc00",
       attachment_type: "default",
@@ -27,7 +28,7 @@ const searchBeersByName = (req, res) => {
               name: "nextButton",
               text: "Next",
               type: "button",
-              value: searchNum
+              value: beerName + "SEARCHNUMBER" + searchNum
           }
       ]
     }
