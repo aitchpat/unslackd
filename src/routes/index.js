@@ -7,7 +7,7 @@ import { Router } from 'express';
 import OAuthRoutes from './oauth';
 import BeerRoutes from './beer';
 import TestBeerSearchRoutes from './testbeersearch';
-import InteractiveRoutes from './interactive';
+//import InteractiveRoutes from './interactive';
 
 export default class UnslackdRoutes {
   static mountRoutes(app) {
@@ -16,7 +16,7 @@ export default class UnslackdRoutes {
 
     OAuthRoutes(router);
     BeerRoutes(router);
-    InteractiveRoutes(router);
+    //InteractiveRoutes(router);
     TestBeerSearchRoutes(router);
 
     app.use('/', router);
