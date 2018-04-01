@@ -61,7 +61,7 @@ const processSearchResults = async (beerName) => {
     res = await UntappdService.beerSearch(beerName);
     body = res.response;
     beers = body.beers.items;
-    numBeers = body.beers.items;
+    numBeers = body.beers.items.length - 1;
   } catch (searchErr) {
     console.log(`Error searching for beer: ${beerName}`);
     console.log(searchErr);
