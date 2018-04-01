@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 // External Dependencies
 import { Router } from 'express';
 

@@ -1,4 +1,4 @@
-/* eslint-disable consistent-return, no-console */
+/* eslint-disable consistent-return */
 // External Dependencies
 import BluebirdRequest from 'request-promise';
 
@@ -8,12 +8,12 @@ import BluebirdRequest from 'request-promise';
 const slackClientID = process.env.SLACK_CLIENT_ID;
 const slackClientSecret = process.env.SLACK_CLIENT_SECRET;
 
-const getOAuth = (req, res) => {
+const getOAuth = async (req, res) => {
   // When a user authorizes an app, a code query parameter is passed on the oAuth endpoint.
   // If that code is not there, we respond with an error message
   if (!req.query.code) {
-    res.status(500).send({ Error: 'Looks like we are not getting the code.' });
     console.log('Looks like we are not getting code.');
+    res.status(500).send({ Error: 'Looks like we are not getting the code.' });
     return;
   }
 
@@ -29,9 +29,12 @@ const getOAuth = (req, res) => {
     qs: queryParams,
   };
 
-  return BluebirdRequest(requestOptions).then(body => res.json(body)).catch((err) => {
+  try {
+    const body = await BluebirdRequest(requestOptions);
+    res.json(body);
+  } catch (err) {
     console.log(err);
-  });
+  }
 };
 
 export default {
