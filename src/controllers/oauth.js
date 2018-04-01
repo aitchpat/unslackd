@@ -1,6 +1,7 @@
 /* eslint-disable consistent-return */
 // External Dependencies
 import BluebirdRequest from 'request-promise';
+import BabelPolyFill from 'babel-polyfill';
 
 // Internal Dependencies
 
