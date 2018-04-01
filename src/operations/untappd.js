@@ -1,4 +1,4 @@
-/* eslint-disable no-console, arrow-body-style */
+/* eslint-disable arrow-body-style */
 // External Dependencies
 import Bluebird from 'bluebird';
 
@@ -31,31 +31,50 @@ const createBeerAttachment = (theBeer, theBeerRating, theBeerNumRatings) => {
   return thisAttachment;
 };
 
-const processSearchResults = (beerName) => {
-  return UntappdService.beerSearch(beerName).then((res) => {
-    const body = res.response;
-    const beers = body.beers.items;
-    const numBeers = body.beers.count;
+const processBeer = async (beerToProcess) => {
+  const beerID = beerToProcess.beer.bid;
 
-    // Get the information for each of the beers
-    return Bluebird.map(beers, (thisBeer) => {
-      const thisBeerID = thisBeer.beer.bid;
-      return UntappdService.beerInfo(thisBeerID).then((beerInfoRes) => {
-        const beerInfoBody = beerInfoRes.response;
-        // Create an object to send back to Slack with the info
-        const beerRating = beerInfoBody.beer.rating_score.toFixed(2);
-        const beerNumRatings = beerInfoBody.beer.rating_count;
-        const beerAttachment = createBeerAttachment(thisBeer, beerRating, beerNumRatings);
-        return beerAttachment;
-      }).catch((beerInfoErr) => {
-        console.log(`Unable to get beer info for ${thisBeer.beer.beer_name}`);
-        console.log(beerInfoErr);
-      });
-    }).then(attachments => ({
-      attachments,
-      numBeers,
-    }));
-  });
+  try {
+    const beerInfoRes = await UntappdService.beerInfo(beerID);
+    const beerInfoBody = beerInfoRes.response;
+
+    // Create an object to send back to Slack with the info
+    const beerRating = beerInfoBody.beer.rating_score.toFixed(2);
+    const beerNumRatings = beerInfoBody.beer.rating_count;
+    const beerAttachment = createBeerAttachment(beerToProcess, beerRating, beerNumRatings);
+    return beerAttachment;
+  } catch (err) {
+    console.log(`Unable to get beer info for ${beerToProcess.beer.beer_name}`);
+    console.log(err);
+    return null;
+  }
+};
+
+const processSearchResults = async (beerName) => {
+  let res;
+  let body;
+  let beers;
+  let numBeers;
+
+  // Search for a beer by name
+  try {
+    res = await UntappdService.beerSearch(beerName);
+    body = res.response;
+    beers = body.beers.items;
+    numBeers = body.beers.items;
+  } catch (searchErr) {
+    console.log(`Error searching for beer: ${beerName}`);
+    console.log(searchErr);
+  }
+
+  // Get the information for each of the beers in the search results
+  const attachments = await Bluebird.map(beers, processBeer);
+
+  // Return the information
+  return {
+    attachments,
+    numBeers,
+  };
 };
 
 export default {
