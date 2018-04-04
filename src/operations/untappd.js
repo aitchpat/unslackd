@@ -106,14 +106,6 @@ const createSharedAttachment = async (beerID) => {
         },
       ],
       image_url: theBeer.beer_label,
-      actions: [
-        {
-          name: 'shareButton',
-          text: 'Share to channel',
-          type: 'button',
-          value: `${theBeer.bid}`,
-        },
-      ],
     };
     return thisAttachment;
   } catch (err) {
