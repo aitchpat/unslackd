@@ -74,10 +74,12 @@ slackMessages
     const action = payload.actions[0];
     console.log(`The button had name ${action.name} and value ${action.value}`);
 
+    const sharedAttachments = [await UntappdOperations.createSharedAttachment(action.value)];
+
     const result = {
       replace_original: false,
       response_type: 'in_channel',
-      attachments: await UntappdOperations.createSharedAttachment(action.value),
+      attachments: sharedAttachments,
     };
     console.log('Attachment ready to share');
     return result;
