@@ -82,10 +82,11 @@ slackMessages
         break;
       }
     }
+    console.log(`User wants to share beer number ${attachmentNum + 1}`);
     const beerToShare = replacement.attachments[attachmentNum];
     const ratingField = {
       title: 'Rating',
-      value: UntappdOperations.getBeerRating,
+      value: UntappdOperations.getBeerRating(action.value),
     };
     beerToShare.fields.push(ratingField);
     const result = {
