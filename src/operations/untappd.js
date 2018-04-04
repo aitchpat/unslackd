@@ -50,7 +50,7 @@ const testCreateBeerAttachment = (theBeer) => {
     actions: [
       {
         name: 'shareButton',
-        text: 'Share with channel',
+        text: 'Share to channel',
         type: 'button',
         value: `${theBeer.beer.bid}`,
       },
@@ -73,6 +73,23 @@ const processBeer = async (beerToProcess) => {
     return beerAttachment;
   } catch (err) {
     console.log(`Unable to get beer info for ${beerToProcess.beer.beer_name}`);
+    console.log(err);
+    return null;
+  }
+};
+
+const getBeerRating = async (beerID) => {
+  try {
+    const beerInfoRes = await UntappdService.beerInfo(beerID);
+    const beerInfoBody = beerInfoRes.response;
+
+    // Create an object to send back to Slack with the info
+    const beerRating = beerInfoBody.beer.rating_score.toFixed(2);
+    const beerNumRatings = beerInfoBody.beer.rating_count;
+    const ratingString = `${beerRating}/5 from ${beerNumRatings} reviews`;
+    return ratingString;
+  } catch (err) {
+    console.log('Unable to get rating info');
     console.log(err);
     return null;
   }
@@ -140,4 +157,5 @@ export default {
   createBeerAttachment,
   testProcessSearchResults,
   testCreateBeerAttachment,
+  getBeerRating,
 };
