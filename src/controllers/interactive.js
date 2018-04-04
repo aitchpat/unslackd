@@ -82,17 +82,19 @@ slackMessages
         break;
       }
     }
-    let beerToShare = replacement.attachments[attachmentNum];
+    const beerToShare = replacement.attachments[attachmentNum];
     const ratingField = {
       title: 'Rating',
       value: UntappdOperations.getBeerRating,
     };
     beerToShare.fields.push(ratingField);
     const result = {
+      replace_original: false,
       response_type: 'in_channel',
       text: `${beerToShare.title} on Untappd`,
       attachments: beerToShare,
     };
+    console.log('Attachment ready to share');
     return result;
   });
 
