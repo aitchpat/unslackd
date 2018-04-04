@@ -65,7 +65,7 @@ slackMessages
       return 'Error! Unable to connect to Untappd at this time';
     }
   })
-  .action('shareButton', async (payload) => {
+  .action('share_to_channel', async (payload) => {
     // `payload` is JSON that describes an interaction with a message.
     console.log(`The user ${payload.user.name} in team ${payload.team.domain} pressed the share to channel button`);
 

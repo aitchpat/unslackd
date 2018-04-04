@@ -34,6 +34,7 @@ const createBeerAttachment = (theBeer, theBeerRating, theBeerNumRatings) => {
 const testCreateBeerAttachment = (theBeer) => {
   const thisAttachment = {
     color: '#ffcc00',
+    callback_id: 'share_to_channel',
     author_name: theBeer.brewery.brewery_name,
     author_link: `https://untappd.com/w/${theBeer.brewery.brewery_slug}/${theBeer.brewery.brewery_id}`,
     author_icon: theBeer.brewery.brewery_label,
