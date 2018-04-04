@@ -45,7 +45,7 @@ slackMessages.action('interactive_beer_search', async (payload) => {
 
   // Search for a beer on Untappd by name
   try {
-    const { attachments, numBeers } = await UntappdOperations.processSearchResults(beerName);
+    const { attachments, numBeers } = await UntappdOperations.testProcessSearchResults(beerName);
     const theAttachments = attachments.slice(searchStart, searchStart + 3);
     const buttonAttachment = buildButtonAttachment(beerName, searchNum);
     theAttachments.push(buttonAttachment);
