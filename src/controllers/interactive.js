@@ -75,8 +75,10 @@ slackMessages
     console.log(`The button had name ${action.name} and value ${action.value}`);
 
     const replacement = payload.original_message;
+    console.log(`${replacement.attachments.length - 1} attachments were in the original message`);
     let attachmentNum = 0;
     for (let a = 0; a < replacement.attachments.length; a += 1) {
+      console.log(`Attachment number ${a + 1} has value ${replacement.attachments[a].actions[0].value}`);
       if (replacement.attachments[a].actions[0].value === action.value) {
         attachmentNum = a;
         break;
