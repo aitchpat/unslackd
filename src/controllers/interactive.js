@@ -73,6 +73,7 @@ slackMessages
     // action (button press, menu selection, etc.)
     const action = payload.actions[0];
     console.log(`The button had name ${action.name} and value ${action.value}`);
+    console.log(payload);
 
     const sharedAttachments = [await UntappdOperations.createSharedAttachment(action.value)];
 
@@ -82,10 +83,12 @@ slackMessages
       attachments: sharedAttachments,
     };
     console.log('Attachment ready to share');
+
     return result;
   });
 
 const reSearch = slackMessages.expressMiddleware();
+
 
 export default{
   reSearch,
