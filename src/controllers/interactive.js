@@ -77,7 +77,7 @@ slackMessages
     const result = {
       replace_original: false,
       response_type: 'in_channel',
-      attachments: UntappdOperations.createSharedAttachment(action.value),
+      attachments: await UntappdOperations.createSharedAttachment(action.value),
     };
     console.log('Attachment ready to share');
     return result;
