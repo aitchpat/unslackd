@@ -83,11 +83,38 @@ const createSharedAttachment = async (beerID) => {
   try {
     const beerInfoRes = await UntappdService.beerInfo(beerID);
     const beerInfoBody = beerInfoRes.response;
-
+    const theBeer = beerInfoBody.beer;
+    const theBrewery = theBeer.brewery;
     // Create an object to send back to Slack with the info
-    const beerRating = beerInfoBody.beer.rating_score.toFixed(2);
-    const beerNumRatings = beerInfoBody.beer.rating_count;
-    const thisAttachment = createBeerAttachment(beerInfoBody, beerRating, beerNumRatings);
+    const thisAttachment = {
+      color: '#ffcc00',
+      callback_id: 'share_to_channel',
+      author_name: theBrewery.brewery_name,
+      author_link: `https://untappd.com/w/${theBrewery.brewery_slug}/${theBrewery.brewery_id}`,
+      author_icon: theBrewery.brewery_label,
+      title: theBeer.beer_name,
+      title_link: `https://untappd.com/b/${theBeer.beer_slug}/${theBeer.bid}`,
+      text: theBeer.beer_description,
+      fields: [
+        {
+          title: 'Rating',
+          value: `${theBeer.rating_score.toFixed(2)}/5 from ${theBeer.rating_count} reviews`,
+        },
+        {
+          title: 'Style',
+          value: theBeer.beer_style,
+        },
+      ],
+      image_url: theBeer.beer_label,
+      actions: [
+        {
+          name: 'shareButton',
+          text: 'Share to channel',
+          type: 'button',
+          value: `${theBeer.bid}`,
+        },
+      ],
+    };
     return thisAttachment;
   } catch (err) {
     console.log('Unable to get rating info');
