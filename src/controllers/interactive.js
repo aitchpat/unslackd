@@ -73,6 +73,7 @@ slackMessages
     // action (button press, menu selection, etc.)
     const action = payload.actions[0];
     console.log(`The button had name ${action.name} and value ${action.value}`);
+    console.log(payload.original_message);
 
     const replacement = payload.original_message;
     console.log(`${replacement.attachments.length - 1} attachments were in the original message`);
