@@ -79,7 +79,7 @@ const processBeer = async (beerToProcess) => {
   }
 };
 
-const getBeerRating = async (beerID) => {
+const createSharedAttachment = async (beerID) => {
   try {
     const beerInfoRes = await UntappdService.beerInfo(beerID);
     const beerInfoBody = beerInfoRes.response;
@@ -87,8 +87,8 @@ const getBeerRating = async (beerID) => {
     // Create an object to send back to Slack with the info
     const beerRating = beerInfoBody.beer.rating_score.toFixed(2);
     const beerNumRatings = beerInfoBody.beer.rating_count;
-    const ratingString = `${beerRating}/5 from ${beerNumRatings} reviews`;
-    return ratingString;
+    const thisAttachment = createBeerAttachment(beerInfoBody, beerRating, beerNumRatings);
+    return thisAttachment;
   } catch (err) {
     console.log('Unable to get rating info');
     console.log(err);
@@ -158,5 +158,5 @@ export default {
   createBeerAttachment,
   testProcessSearchResults,
   testCreateBeerAttachment,
-  getBeerRating,
+  createSharedAttachment,
 };
