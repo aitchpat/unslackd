@@ -11,11 +11,10 @@ import bodyParser from 'body-parser';
 import Router from './routes';
 
 const app = express();
-const path = require('path');
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-app.use('/views', express.static(path.join(__dirname, '/views')));
+app.use(express.static('/views'));
 // Mount Routes
 Router.mountRoutes(app);
 
