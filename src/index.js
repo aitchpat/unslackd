@@ -15,7 +15,7 @@ const path = require('path');
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-app.use('/views/success', express.static(path.join(__dirname, '/views/success')));
+app.use('/views', express.static(path.join(__dirname, '/views')));
 // Mount Routes
 Router.mountRoutes(app);
 
