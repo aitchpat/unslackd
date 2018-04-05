@@ -32,7 +32,11 @@ const getOAuth = async (req, res) => {
 
   try {
     const body = await BluebirdRequest(requestOptions);
-    res.json(body);
+    if (body.ok) {
+      res.redirect(200, '../views/success/success.html');
+    } else {
+      res.json(body);
+    }
   } catch (err) {
     console.log(err);
   }

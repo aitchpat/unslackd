@@ -1,0 +1,16 @@
+body {
+  background: #ffcc00;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif
+}
+.pageTitle{
+  margin: auto;
+}
+.center{
+    margin: auto;
+    width: 50%;
+    padding: 10px;
+    text-align: center;
+}
+img {
+  border-radius: 2%
+}
