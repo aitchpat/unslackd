@@ -6,11 +6,11 @@
   "scripts": {
     "start": "npm run serve",
     "build": "npm run build-ts && npm run tslint",
-    "serve": "node dist/index.js",
-    "dev": "node -r dotenv/config ./dist/index.js",
+    "serve": "node build/index.js",
+    "dev": "node -r dotenv/config ./build/index.js",
     "build-ts": "tsc",
     "tslint": "tslint -c tslint.json -p tsconfig.json",
-    "test": "npm run build && mocha --bail --recursive --sort --full-trace ./dist/test"
+    "test": "npm run build && mocha --bail --recursive --sort --full-trace ./build/test"
   },
   "dependencies": {
     "@slack/interactive-messages": "^0.2.0",
@@ -24,9 +24,6 @@
     "express": "^4.16.4",
     "request": "^2.88.0",
     "request-promise": "^4.2.2"
-  },
-  "engines": {
-    "node": "6.10.3"
   },
   "author": "Harry Paterra",
   "license": "MIT",
