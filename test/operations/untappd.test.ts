@@ -14,8 +14,9 @@ describe('Untappd Operations', function () {
       const beerName = 'Rubinator';
       const results = await UntappdOperations.processSearchResults(beerName);
       expect(results).to.exist;
+      expect(results.attachments).to.exist;
       expect(results.attachments).to.have.length.above(0);
-      expect(results.attachments[0].title).to.eq(beerName);
+      expect(results.attachments[0]!.title).to.eq(beerName);
     });
   });
 
