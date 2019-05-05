@@ -10,16 +10,17 @@ const buildResultsPayload = (searchAttachments, numBeers, searchNum) => ({
 });
 
 const searchBeersByName = async (req, res) => {
-  let searchNum = 0;
-  if (req.body.text.indexOf('SEARCHNUMBER') > -1) {
-    searchNum = req.body.text.substring(req.body.text.indexOf('SEARCHNUMBER'));
-    searchNum *= 3;
-  }
-
-  // Search for a beer on Untappd by name
-  const beerName = req.body.text;
-
   try {
+    let searchNum = 0;
+    if (req.body.text.indexOf('SEARCHNUMBER') > -1) {
+      searchNum = req.body.text.substring(req.body.text.indexOf('SEARCHNUMBER'));
+      searchNum *= 3;
+    }
+
+    // Search for a beer on Untappd by name
+    const beerName = req.body.text;
+
+  
     const { attachments, numBeers } = await UntappdOperations.processSearchResults(beerName);
     // We have processed the search results, send back the info
     const payload = buildResultsPayload(attachments, numBeers, searchNum);
