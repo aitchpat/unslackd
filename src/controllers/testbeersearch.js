@@ -20,16 +20,16 @@ const buildButtonAttachment = (beerName, searchNum) => ({
 });
 
 const searchBeersByName = async (req, res) => {
-  let searchNum = 0;
-  let searchStart = searchNum;
-  if (req.body.text.indexOf('SEARCHNUMBER') > -1) {
-    searchNum = req.body.text.substring(req.body.text.indexOf('SEARCHNUMBER'));
-    searchStart = searchNum * 3;
-  }
-  searchNum += 1;
-
-  // Search for a beer on Untappd by name
   try {
+    let searchNum = 0;
+    let searchStart = searchNum;
+    if (req.body.text.indexOf('SEARCHNUMBER') > -1) {
+      searchNum = req.body.text.substring(req.body.text.indexOf('SEARCHNUMBER'));
+      searchStart = searchNum * 3;
+    }
+    searchNum += 1;
+
+    // Search for a beer on Untappd by name
     const beerName = req.body.text;
     const { attachments, numBeers } = await UntappdOperations.testProcessSearchResults(beerName);
     const theAttachments = attachments.slice(searchStart, searchStart + 3);
