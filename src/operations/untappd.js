@@ -79,8 +79,9 @@ const processBeer = async (beerToProcess) => {
   }
 };
 
-const createSharedAttachment = async (beerID) => {
+const createSharedAttachment = async (payload) => {
   try {
+    const beerID = payload.actions[0].value;
     const beerInfoRes = await UntappdService.beerInfo(beerID);
     const beerInfoBody = beerInfoRes.response;
     const theBeer = beerInfoBody.beer;
@@ -104,6 +105,10 @@ const createSharedAttachment = async (beerID) => {
           title: 'Style',
           value: theBeer.beer_style,
         },
+        {
+          title: 'Shared by',
+          value: `@${payload.user.name}`,
+        }
       ],
       image_url: theBeer.beer_label,
     };

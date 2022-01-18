@@ -84,7 +84,7 @@ slackMessages
     console.log(`The button had name ${action.name} and value ${action.value}`);
     console.log(payload);
 
-    const sharedAttachments = [await UntappdOperations.createSharedAttachment(action.value)];
+    const sharedAttachments = [await UntappdOperations.createSharedAttachment(payload)];
 
     const result = {
       replace_original: false,
