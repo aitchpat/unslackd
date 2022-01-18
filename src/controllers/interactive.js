@@ -49,9 +49,11 @@ slackMessages
       const { attachments, numBeers } = await UntappdOperations.testProcessSearchResults(beerName);
       const theAttachments = attachments.slice(searchStart, searchStart + 3);
       let nextButtonAttached = false;
+      console.log(`numBeers: ${numBeers}, searchStart plus 3: ${searchStart + 3}, theAttachments.length: ${theAttachments.length}`);
       if((searchStart + 3) < numBeers) {
         const buttonAttachment = buildButtonAttachment(beerName, searchNum);
         theAttachments.push(buttonAttachment);
+        console.log('Added button attachment');
         nextButtonAttached = true;
       }
 
