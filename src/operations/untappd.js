@@ -107,7 +107,7 @@ const createSharedAttachment = async (payload) => {
         },
         {
           title: 'Shared by',
-          value: `<@${payload.user.id}?`,
+          value: `<@${payload.user.id}>`,
         }
       ],
       image_url: theBeer.beer_label,
