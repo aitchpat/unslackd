@@ -3,11 +3,15 @@
 // Operations
 import UntappdOperations from '../operations/untappd';
 
-const buildResultsPayload = (searchAttachments, numBeers, searchNum) => ({
-  response_type: 'in_channel',
-  text: `${numBeers} beers found, first three shown below`,
-  attachments: searchAttachments.slice(searchNum, searchNum + 3),
-});
+const buildResultsPayload = (searchAttachments, numBeers, searchNum) => {
+  let beerS = numBeers > 1 ? 'beers' : 'beer';
+  let attachments = searchAttachments.slice(searchNum, searchNum + 3);
+  return {
+      response_type: 'in_channel',
+      text: `${numBeers} ${beerS} found, first ${attachments.length} shown below`,
+      attachments: attachments,
+    }
+  };
 
 const searchBeersByName = async (req, res) => {
   try {

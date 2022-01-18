@@ -48,17 +48,20 @@ slackMessages
     try {
       const { attachments, numBeers } = await UntappdOperations.testProcessSearchResults(beerName);
       const theAttachments = attachments.slice(searchStart, searchStart + 3);
-      const buttonAttachment = buildButtonAttachment(beerName, searchNum);
-      theAttachments.push(buttonAttachment);
+      if(searchNum * 3 < numBeers) {
+        const buttonAttachment = buildButtonAttachment(beerName, searchNum);
+        theAttachments.push(buttonAttachment);
+      }
 
       // We have processed the search results, send back the info
+      let beerS = numBeers > 1 ? 'beers' : 'beer';
       const processedResults = {
         replace_original: true,
         response_type: 'ephemeral',
-        text: `${numBeers} beers found, ${searchStart + 1} through ${searchStart + 3} shown below`,
+        text: `${numBeers} ${beerS} found, ${searchStart + 1} through ${searchStart + theAttachments.length} shown below`,
         attachments: theAttachments,
       };
-      console.log(`${theAttachments.length} attachments ready representing beers ${searchStart + 1} through ${searchStart + 3}`);
+      console.log(`${theAttachments.length} attachments ready representing beers ${searchStart + 1} through ${searchStart + theAttachments.length}`);
       return processedResults;
     } catch (err) {
       console.log(`Error processing results: ${err}`);

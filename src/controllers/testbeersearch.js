@@ -39,7 +39,7 @@ const searchBeersByName = async (req, res) => {
     // We have processed the search results, send back the info
     const payload = {
       response_type: 'ephemeral',
-      text: `${numBeers} beers found, ${searchStart + 1} through ${searchStart + 3} shown below`,
+      text: `${numBeers} beers found, ${searchStart + 1} through ${searchStart + theAttachments.length} shown below`,
       attachments: theAttachments,
     };
     res.send(payload);
