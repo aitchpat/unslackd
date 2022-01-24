@@ -87,7 +87,7 @@ slackMessages
     const sharedAttachments = [await UntappdOperations.createSharedAttachment(payload)];
 
     const result = {
-      replace_original: false,
+      replace_original: true,
       response_type: 'in_channel',
       attachments: sharedAttachments,
     };
