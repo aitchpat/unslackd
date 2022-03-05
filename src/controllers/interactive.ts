@@ -22,7 +22,7 @@ const buildButtonAttachment = (beerName: string, searchNum: number) => ({
 const slackMessages = createMessageAdapter(process.env.SLACK_VERIFICATION_TOKEN);
 
 slackMessages
-  .action('interactive_beer_search', async (payload) => {
+  .action('interactive_beer_search', async (payload: any) => {
     // `payload` is JSON that describes an interaction with a message.
     console.log(`The user ${payload.user.name} in team ${payload.team.domain} pressed the load more button`);
 
@@ -72,7 +72,7 @@ slackMessages
       return 'Error! Unable to connect to Untappd at this time';
     }
   })
-  .action('share_to_channel', async (payload) => {
+  .action('share_to_channel', async (payload: any) => {
     // `payload` is JSON that describes an interaction with a message.
     console.log(`The user ${payload.user.name} in team ${payload.team.domain} pressed the share to channel button`);
 

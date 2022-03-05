@@ -3,12 +3,12 @@ import UntappdService from '~/services/untappd';
 const createBeerAttachment = (theBeer: any, theBeerRating: number, theBeerNumRatings: number) => {
   const thisAttachment = {
     color: '#ffcc00',
-    author_name: theBeer.brewery.brewery_name,
+    author_name: theBeer.brewery.brewery_name as string,
     author_link: `https://untappd.com/w/${theBeer.brewery.brewery_slug}/${theBeer.brewery.brewery_id}`,
-    author_icon: theBeer.brewery.brewery_label,
-    title: theBeer.beer.beer_name,
+    author_icon: theBeer.brewery.brewery_label as string,
+    title: theBeer.beer.beer_name as string,
     title_link: `https://untappd.com/b/${theBeer.beer.beer_slug}/${theBeer.beer.bid}`,
-    text: theBeer.beer.beer_description,
+    text: theBeer.beer.beer_description as string,
     fields: [
       {
         title: 'Rating',
@@ -16,10 +16,10 @@ const createBeerAttachment = (theBeer: any, theBeerRating: number, theBeerNumRat
       },
       {
         title: 'Style',
-        value: theBeer.beer.beer_style,
+        value: theBeer.beer.beer_style as string,
       },
     ],
-    image_url: theBeer.beer.beer_label,
+    image_url: theBeer.beer.beer_label as string,
   };
   return thisAttachment;
 };
@@ -72,7 +72,7 @@ const processBeer = async (beerToProcess: any) => {
   }
 };
 
-const createSharedAttachment = async (payload) => {
+const createSharedAttachment = async (payload: any) => {
   try {
     const beerID = payload.actions[0].value;
     const beerInfoRes = await UntappdService.beerInfo(beerID);
@@ -114,15 +114,12 @@ const createSharedAttachment = async (payload) => {
 };
 
 const processSearchResults = async (beerName: string) => {
-  let res;
-  let body;
   let beers;
   let numBeers;
 
   // Search for a beer by name
   try {
-    res = await UntappdService.beerSearch(beerName);
-    body = res.response;
+    const body = await UntappdService.beerSearch(beerName);
     beers = body.beers.items;
     numBeers = body.beers.items.length;
   } catch (searchErr) {
@@ -141,15 +138,12 @@ const processSearchResults = async (beerName: string) => {
 };
 
 const testProcessSearchResults = async (beerName: string) => {
-  let res;
-  let body;
   let beers;
   let numBeers;
 
   // Search for a beer by name
   try {
-    res = await UntappdService.beerSearch(beerName);
-    body = res.response;
+    const body = await UntappdService.beerSearch(beerName);
     beers = body.beers.items;
     numBeers = body.beers.items.length;
   } catch (searchErr) {
