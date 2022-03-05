@@ -1,10 +1,8 @@
-// External Dependencies
 import { createMessageAdapter } from '@slack/interactive-messages';
 
-// Internal Dependencies
-import UntappdOperations from '../operations/untappd';
+import UntappdOperations from '~/operations/untappd';
 
-const buildButtonAttachment = (beerName, searchNum) => ({
+const buildButtonAttachment = (beerName: string, searchNum: number) => ({
   text: 'Not these beers? Load some more',
   fallback: 'You are unable to load more beers',
   callback_id: 'interactive_beer_search',
@@ -50,17 +48,17 @@ slackMessages
       const theAttachments = attachments.slice(searchStart, searchStart + 3);
       let nextButtonAttached = false;
       console.log(`numBeers: ${numBeers}, searchStart plus 3: ${searchStart + 3}, theAttachments.length: ${theAttachments.length}`);
-      if((searchStart + 3) < numBeers) {
+      if ((searchStart + 3) < numBeers) {
         const buttonAttachment = buildButtonAttachment(beerName, searchNum);
         theAttachments.push(buttonAttachment);
         console.log('Added button attachment');
         nextButtonAttached = true;
       }
 
-      let adjustment = nextButtonAttached ? 1 : 0;
+      const adjustment = nextButtonAttached ? 1 : 0;
 
       // We have processed the search results, send back the info
-      let beerS = numBeers > 1 ? 'beers' : 'beer';
+      const beerS = numBeers > 1 ? 'beers' : 'beer';
       const processedResults = {
         replace_original: true,
         response_type: 'ephemeral',

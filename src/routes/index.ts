@@ -1,17 +1,15 @@
-// External Dependencies
 import { Router } from 'express';
+import type { Application, Request, Response, NextFunction } from 'express';
 
-// Internal Dependencies
-// Routes
 import OAuthRoutes from './oauth';
 import BeerRoutes from './beer';
 import TestBeerSearchRoutes from './testbeersearch';
 import InteractiveRoutes from './interactive';
 
 export default class UnslackdRoutes {
-  static mountRoutes(app) {
+  static mountRoutes(app: Application) {
     // Generate routes
-    const router = new Router();
+    const router: Router = Router();
 
     OAuthRoutes(router);
     BeerRoutes(router);
@@ -26,8 +24,7 @@ export default class UnslackdRoutes {
    * Express default error handler.
    * See: http://expressjs.com/en/guide/error-handling.html
    */
-  // eslint-disable-next-line
-  static defaultErrorHandler(err, req, res, next) {
+  static defaultErrorHandler(err: Error, req: Request, res: Response, next: NextFunction) {
     console.error('Internal Error. Uncaught error in handlers: ', err);
     res.status(500).json({ error: 'Internal server error' });
   }

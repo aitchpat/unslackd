@@ -1,9 +1,8 @@
-// Internal Dependencies
+import type { Request, Response } from 'express';
 
-// Operations
-import UntappdOperations from '../operations/untappd';
+import UntappdOperations from '~/operations/untappd';
 
-const buildButtonAttachment = (beerName, searchNum) => ({
+const buildButtonAttachment = (beerName: string, searchNum: number) => ({
   text: 'Not these beers? Load some more',
   fallback: 'You are unable to load more beers',
   callback_id: 'interactive_beer_search',
@@ -19,7 +18,7 @@ const buildButtonAttachment = (beerName, searchNum) => ({
   ],
 });
 
-const searchBeersByName = async (req, res) => {
+const searchBeersByName = async (req: Request, res: Response) => {
   try {
     let searchNum = 0;
     let searchStart = searchNum;
@@ -33,20 +32,20 @@ const searchBeersByName = async (req, res) => {
     // Search for a beer on Untappd by name
     const beerName = req.body.text;
     const { attachments, numBeers } = await UntappdOperations.testProcessSearchResults(beerName);
-      const theAttachments = attachments.slice(searchStart, searchStart + 3);
-      let nextButtonAttached = false;
-      console.log(`numBeers: ${numBeers}, searchStart plus 3: ${searchStart + 3}, theAttachments.length: ${theAttachments.length}`);
-      if((searchStart + 3) < numBeers) {
-        const buttonAttachment = buildButtonAttachment(beerName, searchNum);
-        theAttachments.push(buttonAttachment);
-        console.log('Added button attachment');
-        nextButtonAttached = true;
-      }
+    const theAttachments = attachments.slice(searchStart, searchStart + 3);
+    let nextButtonAttached = false;
+    console.log(`numBeers: ${numBeers}, searchStart plus 3: ${searchStart + 3}, theAttachments.length: ${theAttachments.length}`);
+    if ((searchStart + 3) < numBeers) {
+      const buttonAttachment = buildButtonAttachment(beerName, searchNum);
+      theAttachments.push(buttonAttachment);
+      console.log('Added button attachment');
+      nextButtonAttached = true;
+    }
 
-      let adjustment = nextButtonAttached ? 1 : 0;
+    const adjustment = nextButtonAttached ? 1 : 0;
 
     // We have processed the search results, send back the info
-    let beerS = numBeers > 1 ? 'beers' : 'beer';
+    const beerS = numBeers > 1 ? 'beers' : 'beer';
     const payload = {
       response_type: 'ephemeral',
       text: `${numBeers} ${beerS} found, ${searchStart + 1} through ${searchStart + theAttachments.length - adjustment} shown below`,

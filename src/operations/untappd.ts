@@ -1,13 +1,6 @@
-/* eslint-disable arrow-body-style */
-// External Dependencies
-import Bluebird from 'bluebird';
+import UntappdService from '~/services/untappd';
 
-// Internal Dependencies
-
-// Services
-import UntappdService from '../services/untappd';
-
-const createBeerAttachment = (theBeer, theBeerRating, theBeerNumRatings) => {
+const createBeerAttachment = (theBeer: any, theBeerRating: number, theBeerNumRatings: number) => {
   const thisAttachment = {
     color: '#ffcc00',
     author_name: theBeer.brewery.brewery_name,
@@ -31,7 +24,7 @@ const createBeerAttachment = (theBeer, theBeerRating, theBeerNumRatings) => {
   return thisAttachment;
 };
 
-const testCreateBeerAttachment = (theBeer) => {
+const testCreateBeerAttachment = (theBeer: any) => {
   const thisAttachment = {
     color: '#ffcc00',
     callback_id: 'share_to_channel',
@@ -60,7 +53,7 @@ const testCreateBeerAttachment = (theBeer) => {
   return thisAttachment;
 };
 
-const processBeer = async (beerToProcess) => {
+const processBeer = async (beerToProcess: any) => {
   const beerID = beerToProcess.beer.bid;
 
   try {
@@ -120,7 +113,7 @@ const createSharedAttachment = async (payload) => {
   }
 };
 
-const processSearchResults = async (beerName) => {
+const processSearchResults = async (beerName: string) => {
   let res;
   let body;
   let beers;
@@ -138,7 +131,7 @@ const processSearchResults = async (beerName) => {
   }
 
   // Get the information for each of the beers in the search results
-  const attachments = await Bluebird.map(beers, processBeer);
+  const attachments = await Promise.all(beers.map(processBeer));
 
   // Return the information
   return {
@@ -147,7 +140,7 @@ const processSearchResults = async (beerName) => {
   };
 };
 
-const testProcessSearchResults = async (beerName) => {
+const testProcessSearchResults = async (beerName: string) => {
   let res;
   let body;
   let beers;

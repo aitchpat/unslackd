@@ -1,9 +1,5 @@
-/* eslint-disable */
-
-// External Dependencies
 import { expect } from 'chai';
 
-// Internal Dependencies
 import UntappdService from '../../src/services/untappd';
 
 describe('Untappd Service', function () {
