@@ -14,7 +14,7 @@
     "build": "npm run clean && npm run build-tsc",
     "start": "npm run build && node ./build/index.js",
     "dev": "npm run build && node -r dotenv/config ./build/index.js",
-    "test": "mocha --require ts-node/register --extension test.ts --bail --recursive --sort --full-trace ./test",
+    "test": "npm run build && mocha --require ts-node/register --extension test.ts --bail --recursive --sort --full-trace ./test",
     "debug": "npm run build && node --inspect-brk -r dotenv/config ./build/index.js"
   },
   "dependencies": {
