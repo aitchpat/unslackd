@@ -1,15 +1,11 @@
-/* eslint-disable consistent-return */
-// External Dependencies
-import BluebirdRequest from 'request-promise';
-import BabelPolyFill from 'babel-polyfill';
-
-// Internal Dependencies
+import type { Request, Response } from 'express';
+import fetch from 'node-fetch';
 
 // Secrets
 const slackClientID = process.env.SLACK_CLIENT_ID;
 const slackClientSecret = process.env.SLACK_CLIENT_SECRET;
 
-const getOAuth = async (req, res) => {
+const getOAuth = async (req: Request, res: Response) => {
   // When a user authorizes an app, a code query parameter is passed on the oAuth endpoint.
   // If that code is not there, we respond with an error message
   if (!req.query.code) {
@@ -20,20 +16,17 @@ const getOAuth = async (req, res) => {
 
   // GET call to Slack's `oauth.access` endpoint, passing our app's client ID,
   // client secret, and the code we just got as query parameters.
-  const queryParams = {
-    code: req.query.code,
+  const queryParams = new URLSearchParams({
+    code: req.query.code as string,
     client_id: slackClientID,
     client_secret: slackClientSecret,
-  };
-  const requestOptions = {
-    url: 'https://slack.com/api/oauth.access',
-    qs: queryParams,
-  };
+  });
+  const url = 'https://slack.com/api/oauth.access';
 
   try {
-    const body = await BluebirdRequest(requestOptions);
+    const body = await fetch(`${url}?${queryParams}`);
     console.log(body);
-    if (JSON.parse(body).ok) {
+    if (body.ok) {
       res.redirect(200, '../views/success/success.html');
     } else {
       res.json(body);

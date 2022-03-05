@@ -1,21 +1,14 @@
-/* eslint-disable arrow-body-style */
-// External Dependencies
-import Bluebird from 'bluebird';
+import UntappdService from '~/services/untappd';
 
-// Internal Dependencies
-
-// Services
-import UntappdService from '../services/untappd';
-
-const createBeerAttachment = (theBeer, theBeerRating, theBeerNumRatings) => {
+const createBeerAttachment = (theBeer: any, theBeerRating: number, theBeerNumRatings: number) => {
   const thisAttachment = {
     color: '#ffcc00',
-    author_name: theBeer.brewery.brewery_name,
+    author_name: theBeer.brewery.brewery_name as string,
     author_link: `https://untappd.com/w/${theBeer.brewery.brewery_slug}/${theBeer.brewery.brewery_id}`,
-    author_icon: theBeer.brewery.brewery_label,
-    title: theBeer.beer.beer_name,
+    author_icon: theBeer.brewery.brewery_label as string,
+    title: theBeer.beer.beer_name as string,
     title_link: `https://untappd.com/b/${theBeer.beer.beer_slug}/${theBeer.beer.bid}`,
-    text: theBeer.beer.beer_description,
+    text: theBeer.beer.beer_description as string,
     fields: [
       {
         title: 'Rating',
@@ -23,15 +16,15 @@ const createBeerAttachment = (theBeer, theBeerRating, theBeerNumRatings) => {
       },
       {
         title: 'Style',
-        value: theBeer.beer.beer_style,
+        value: theBeer.beer.beer_style as string,
       },
     ],
-    image_url: theBeer.beer.beer_label,
+    image_url: theBeer.beer.beer_label as string,
   };
   return thisAttachment;
 };
 
-const testCreateBeerAttachment = (theBeer) => {
+const testCreateBeerAttachment = (theBeer: any) => {
   const thisAttachment = {
     color: '#ffcc00',
     callback_id: 'share_to_channel',
@@ -60,7 +53,7 @@ const testCreateBeerAttachment = (theBeer) => {
   return thisAttachment;
 };
 
-const processBeer = async (beerToProcess) => {
+const processBeer = async (beerToProcess: any) => {
   const beerID = beerToProcess.beer.bid;
 
   try {
@@ -79,7 +72,7 @@ const processBeer = async (beerToProcess) => {
   }
 };
 
-const createSharedAttachment = async (payload) => {
+const createSharedAttachment = async (payload: any) => {
   try {
     const beerID = payload.actions[0].value;
     const beerInfoRes = await UntappdService.beerInfo(beerID);
@@ -120,16 +113,13 @@ const createSharedAttachment = async (payload) => {
   }
 };
 
-const processSearchResults = async (beerName) => {
-  let res;
-  let body;
+const processSearchResults = async (beerName: string) => {
   let beers;
   let numBeers;
 
   // Search for a beer by name
   try {
-    res = await UntappdService.beerSearch(beerName);
-    body = res.response;
+    const body = await UntappdService.beerSearch(beerName);
     beers = body.beers.items;
     numBeers = body.beers.items.length;
   } catch (searchErr) {
@@ -138,7 +128,7 @@ const processSearchResults = async (beerName) => {
   }
 
   // Get the information for each of the beers in the search results
-  const attachments = await Bluebird.map(beers, processBeer);
+  const attachments = await Promise.all(beers.map(processBeer));
 
   // Return the information
   return {
@@ -147,16 +137,13 @@ const processSearchResults = async (beerName) => {
   };
 };
 
-const testProcessSearchResults = async (beerName) => {
-  let res;
-  let body;
+const testProcessSearchResults = async (beerName: string) => {
   let beers;
   let numBeers;
 
   // Search for a beer by name
   try {
-    res = await UntappdService.beerSearch(beerName);
-    body = res.response;
+    const body = await UntappdService.beerSearch(beerName);
     beers = body.beers.items;
     numBeers = body.beers.items.length;
   } catch (searchErr) {

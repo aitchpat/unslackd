@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+      "module": "CommonJS",
+      "esModuleInterop": true,
+      "allowSyntheticDefaultImports": true,
+      "target": "esnext",
+      "noImplicitAny": true,
+      "moduleResolution": "node",
+      "sourceMap": true,
+      "outDir": "build",
+      "baseUrl": ".",
+      "paths": {
+          "~/*": ["src/*"]
+      }
+  },
+  "include": [
+      "src/**/*"
+  ]
+}

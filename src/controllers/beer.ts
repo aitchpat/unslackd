@@ -1,19 +1,18 @@
-// Internal Dependencies
+import type { Request, Response } from 'express';
 
-// Operations
-import UntappdOperations from '../operations/untappd';
+import UntappdOperations from '~/operations/untappd';
 
-const buildResultsPayload = (searchAttachments, numBeers, searchNum) => {
-  let beerS = numBeers > 1 ? 'beers' : 'beer';
-  let attachments = searchAttachments.slice(searchNum, searchNum + 3);
+const buildResultsPayload = (searchAttachments: unknown[], numBeers: number, searchNum: number) => {
+  const beerS = numBeers > 1 ? 'beers' : 'beer';
+  const attachments = searchAttachments.slice(searchNum, searchNum + 3);
   return {
-      response_type: 'in_channel',
-      text: `${numBeers} ${beerS} found, first ${attachments.length} shown below`,
-      attachments: attachments,
-    }
+    response_type: 'in_channel',
+    text: `${numBeers} ${beerS} found, first ${attachments.length} shown below`,
+    attachments,
   };
+};
 
-const searchBeersByName = async (req, res) => {
+const searchBeersByName = async (req: Request, res: Response) => {
   try {
     let searchNum = 0;
     if (req.body.text.indexOf('SEARCHNUMBER') > -1) {
@@ -24,7 +23,7 @@ const searchBeersByName = async (req, res) => {
     // Search for a beer on Untappd by name
     const beerName = req.body.text;
 
-  
+
     const { attachments, numBeers } = await UntappdOperations.processSearchResults(beerName);
     // We have processed the search results, send back the info
     const payload = buildResultsPayload(attachments, numBeers, searchNum);
