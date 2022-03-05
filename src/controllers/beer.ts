@@ -2,7 +2,7 @@ import type { Request, Response } from 'express';
 
 import UntappdOperations from '~/operations/untappd';
 
-const buildResultsPayload = (searchAttachments: any[], numBeers: number, searchNum: number) => {
+const buildResultsPayload = (searchAttachments: unknown[], numBeers: number, searchNum: number) => {
   const beerS = numBeers > 1 ? 'beers' : 'beer';
   const attachments = searchAttachments.slice(searchNum, searchNum + 3);
   return {

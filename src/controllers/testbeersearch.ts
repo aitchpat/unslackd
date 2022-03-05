@@ -32,7 +32,7 @@ const searchBeersByName = async (req: Request, res: Response) => {
     // Search for a beer on Untappd by name
     const beerName = req.body.text;
     const { attachments, numBeers } = await UntappdOperations.testProcessSearchResults(beerName);
-    const theAttachments = attachments.slice(searchStart, searchStart + 3);
+    const theAttachments: unknown[] = attachments.slice(searchStart, searchStart + 3);
     let nextButtonAttached = false;
     console.log(`numBeers: ${numBeers}, searchStart plus 3: ${searchStart + 3}, theAttachments.length: ${theAttachments.length}`);
     if ((searchStart + 3) < numBeers) {
@@ -45,10 +45,9 @@ const searchBeersByName = async (req: Request, res: Response) => {
     const adjustment = nextButtonAttached ? 1 : 0;
 
     // We have processed the search results, send back the info
-    const beerS = numBeers > 1 ? 'beers' : 'beer';
     const payload = {
       response_type: 'ephemeral',
-      text: `${numBeers} ${beerS} found, ${searchStart + 1} through ${searchStart + theAttachments.length - adjustment} shown below`,
+      text: `${numBeers} ${numBeers > 1 ? 'beers' : 'beer'} found, ${searchStart + 1} through ${searchStart + theAttachments.length - adjustment} shown below`,
       attachments: theAttachments,
     };
     res.send(payload);

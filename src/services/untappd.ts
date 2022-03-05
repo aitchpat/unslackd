@@ -11,7 +11,7 @@ const beerSearch = (beerName: string) => {
     client_id: untappdClientID,
     client_secret: untappdClientSecret,
   });
-  return fetch(`${url}?${queryParams}`).then((res) => res.json());
+  return fetch(`${url}?${queryParams}`).then((res) => res.json() as any);
 };
 
 const beerInfo = (bid: string) => {
@@ -20,7 +20,7 @@ const beerInfo = (bid: string) => {
     client_id: untappdClientID,
     client_secret: untappdClientSecret,
   });
-  return fetch(`${url}?${queryParams}`).then((res) => res.json());
+  return fetch(`${url}?${queryParams}`).then((res) => res.json() as any);
 };
 
 export default {

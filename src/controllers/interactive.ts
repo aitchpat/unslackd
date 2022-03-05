@@ -45,7 +45,7 @@ slackMessages
     // Search for a beer on Untappd by name
     try {
       const { attachments, numBeers } = await UntappdOperations.testProcessSearchResults(beerName);
-      const theAttachments = attachments.slice(searchStart, searchStart + 3);
+      const theAttachments: unknown[] = attachments.slice(searchStart, searchStart + 3);
       let nextButtonAttached = false;
       console.log(`numBeers: ${numBeers}, searchStart plus 3: ${searchStart + 3}, theAttachments.length: ${theAttachments.length}`);
       if ((searchStart + 3) < numBeers) {
